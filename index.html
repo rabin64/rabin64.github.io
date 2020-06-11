@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Portfolio Design</title>
+
+<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+
+</head>
+
+<body>
+
+	<div class="main" id="loading">
+
+		Loading...
+		<img src="C:\Users\Dell\Desktop\project\loading.png"
+		 height="100"
+		 width="100" >
+	</div>
+
+
+	<div class="bg" id="mainclass" hidden>
+	<div id="container">
+
+	
+	
+	<h1><a href="#"><img id="profil" alt="profil loading"></a></h1>
+
+<div id="header">
+	<h1>Hello, I'm <a id="Fullname"></a></h1>
+	<h2>I am a student currently enrolled in <a id="college"></a> as a student</h2>
+</div>
+
+<div id="info">
+	<h2>Check my github profile:<a id="Githublink">Github</a></h2>
+	<br>
+	<h2> Address: <a id="Address" ></a></h2>
+	<br>
+	<h2>Github_Bio:<a id="bio"></a></h2>
+	<br>
+	<h2>I have been followed by <a  id="followerInfo"></a> people in Github until now.</h2>
+	<br>
+
+
+
+
+	<h2>My projects: 
+		<a id="reponumber"></a>
+	</h2>
+	<h2> My github repositories:<br> <a id="repolist"></a></h2>
+	</div>
+	</div>
+
+
+	<p>Twitter userid: <a id= "twitter"></a></p>
+	<a href="https://twitter.com/RabinSh647183?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @RabinSh647183</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<div id="footer">
+	<p id="copyright">&copy;Rabin Shrestha</p>
+	<p id="back-top"><a href="#">Going up?</a></p>
+</div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+		fetch("https://api.github.com/users/rabin64")
+		.then(response => response.json())
+		.then(function(data){
+			console.log(data)
+		document.getElementById("profil").src = data['avatar_url']
+		document.getElementById("college").textContent = data['company']
+		document.getElementById("Fullname").textContent= data['name']
+		document.getElementById("Githublink").href= data['html_url']
+		document.getElementById("Address").textContent= data['location']
+		document.getElementById("bio").textContent= data['bio']
+		document.getElementById("twitter").textContent= data['twitter_username']
+		document.getElementById("followerInfo").textContent= data['followers']
+		document.getElementById("mainclass").hidden= false
+		document.getElementById("loading").hidden= true
+
+
+
+		})
+		fetch("https://api.github.com/users/rabin64/repos")
+		.then(response => response.json())
+		.then(function(data){
+			console.log(data)
+			document.getElementById('reponumber').textContent=data['length']
+
+			for (var i=0;i < data.length; i++) {
+				console.log(data[i].url);
+			    urls = data[i].html_url;
+				var li=document.createElement('li');
+				li.innerHTML = "<a href="+urls+">"+data[i].name +"</a>";
+				document.getElementById('repolist').appendChild(li);
+
+			}
+		
+		})
+		
+
+	</script>
+	
+</body></html>
